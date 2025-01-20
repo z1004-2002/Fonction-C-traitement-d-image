@@ -1,5 +1,8 @@
 # README: Image Processing Program
 
+## Author:
+This code was made by `ZOGNING TEDONGMOUO Franc Abel` and `KWABOU TCHINDA Nelda`
+
 ## Introduction
 This program provides a variety of image processing functionalities for PGM (Portable Graymap) images. Users can perform operations such as image addition, subtraction, contrast enhancement, histogram equalization, zooming, filtering, and edge detection. Results are saved as new PGM files.
 
