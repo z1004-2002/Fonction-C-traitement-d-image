@@ -71,7 +71,7 @@ Below is a detailed description of each command, the expected input, and any add
   ```bash
   ./image_processor seuillage input_image.pgm 128
   ```
-  Output: `seuillage_img.pgm`
+  Output: `binaire_img.pgm`
 
 - **`otsu`**: Applies Otsu's binarization method to an image.
   ```bash

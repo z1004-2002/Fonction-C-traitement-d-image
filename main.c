@@ -814,7 +814,7 @@ ImagePGM *filtre_laplacien_seuil(ImagePGM *image, int seuil)
 ---------------------------------------------*/
 ImagePGM *hough_transform(ImagePGM *image1,int seuil)
 {
-    ImagePGM *image = filtre_prewitt_seuil(image1,seuil);
+    ImagePGM *image = filtre_robert_seuil(image1,seuil);
 
 
     int diag = sqrt((image->hauteur * image->hauteur) + (image->largeur * image->largeur));
@@ -849,7 +849,7 @@ ImagePGM *hough_transform(ImagePGM *image1,int seuil)
     {
         for (int theta = 0; theta < 181; theta++)
         {
-            if (imageVote->data[get_position(rho, theta, 181)] >= 108)
+            if (imageVote->data[get_position(rho, theta, 181)] >= 80)
             {
                 for (int j = 0; j < image->largeur; j++)
                 {
@@ -955,7 +955,7 @@ ImagePGM *binaire_otsu(ImagePGM *image)
         float var1 = 0.0;
         float var2 = 0.0;
 
-        int aux = 0;
+        int aux = 0.0;
         for (int j = 0; j <= i - 1; j++)
         {
             aux += h[j];
@@ -964,7 +964,7 @@ ImagePGM *binaire_otsu(ImagePGM *image)
         p1 = aux * 1.0 / (image->largeur * image->hauteur);
         m1 = aux * 1.0 / (i);
 
-        aux = 0;
+        aux = 0.0;
         for (int j = i; j <= 255; j++)
         {
             aux += h[j];
@@ -982,18 +982,17 @@ ImagePGM *binaire_otsu(ImagePGM *image)
             var2 += ((h[j] - m2) * (h[j] - m2));
         }
         var1 /= i;
-        var2 /= (256 - i);
+        var2 /= (256.0 - i);
         var_intra_classe[i] = p1 * var1 + p2 * var2;
     }
 
-    for (int i = 1; i <= 255; i++)
+    for (int i = 0; i <= 255; i++)
     {
         if (var_intra_classe[i] > var_intra_classe[seuil])
         {
             seuil = i;
         }
     }
-    // printf("%d", seuil);
 
     return seuillage(image, seuil);
 }
@@ -1007,15 +1006,13 @@ int to_int(const char * word){
 
 int main(int argc, char **argv)
 {
-    const char *mon_image = "images/airport.pgm";
-    const char *mon_image2 = "images/goldhill.pgm";
     int seuil;
 
     ImagePGM *image = lecture(argv[2]);
     if(strcmp(argv[1], "addition") == 0 || strcmp(argv[1], "soustraction") == 0)
     {
-        ImagePGM *image2 = lecture(argv[2]);
-        if (strcmp(argv[1], "addition"))
+        ImagePGM *image2 = lecture(argv[3]);
+        if (strcmp(argv[1], "addition")== 0)
         {
             ImagePGM *somme = somme_images(image, image2);
             const char *somme_img = "somme_img.pgm";
@@ -1058,7 +1055,7 @@ int main(int argc, char **argv)
     {
         seuil = to_int(argv[3]);
         ImagePGM *image_seuillage = seuillage(image, seuil);
-        const char *seuillage_img = "seuillage_img.pgm";
+        const char *seuillage_img = "binaire_img.pgm";
         enregister_pgm(seuillage_img, image_seuillage);
     }
     else if (strcmp(argv[1], "otsu") == 0)
