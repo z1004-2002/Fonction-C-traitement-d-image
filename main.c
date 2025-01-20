@@ -998,6 +998,12 @@ ImagePGM *binaire_otsu(ImagePGM *image)
     return seuillage(image, seuil);
 }
 
+int to_int(const char * word){
+    char *str = "123";
+    int num;
+    sscanf(str, "%d", &num);
+    return num;
+}
 
 int main(int argc, char **argv)
 {
@@ -1050,7 +1056,7 @@ int main(int argc, char **argv)
     }
     else if (strcmp(argv[1], "seuillage") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_seuillage = seuillage(image, seuil);
         const char *seuillage_img = "seuillage_img.pgm";
         enregister_pgm(seuillage_img, image_seuillage);
@@ -1069,7 +1075,7 @@ int main(int argc, char **argv)
     }
     else if (strcmp(argv[1], "gaussien") == 0)
     {
-        ImagePGM *image_gaussien = filtre_gaussian(image);
+        ImagePGM *image_gaussien = filtre_gaussien(image);
         const char *gaussien_img = "gaussien_img.pgm";
         enregister_pgm(gaussien_img, image_gaussien);
     }
@@ -1106,35 +1112,35 @@ int main(int argc, char **argv)
     }
     else if (strcmp(argv[1], "robert_seuil") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_robert_seuil = filtre_robert_seuil(image, seuil);
         const char *robert_seuil_img = "robert_seuil_img.pgm";
         enregister_pgm(robert_seuil_img, image_robert_seuil);
     }
     else if (strcmp(argv[1], "prewitt_seuil") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_prewitt_seuil = filtre_prewitt_seuil(image, seuil);
         const char *prewitt_seuil_img = "prewitt_seuil_img.pgm";
         enregister_pgm(prewitt_seuil_img, image_prewitt_seuil);
     }
     else if (strcmp(argv[1], "sobel_seuil") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_sobel_seuil = filtre_sobel_seuil(image, seuil);
         const char *sobel_seuil_img = "sobel_seuil_img.pgm";
         enregister_pgm(sobel_seuil_img, image_sobel_seuil);
     }
     else if (strcmp(argv[1], "laplace_seuil") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_laplace_seuil = filtre_laplacien_seuil(image, seuil);
         const char *laplace_seuil_img = "laplace_seuil_img.pgm";
         enregister_pgm(laplace_seuil_img, image_laplace_seuil);
     }
     else if (strcmp(argv[1], "hough") == 0)
     {
-        seuil = argv[3];
+        seuil = to_int(argv[3]);
         ImagePGM *image_hough = hough_transform(image, seuil);
         const char *hough_img = "hough_img.pgm";
         enregister_pgm(hough_img, image_hough);
