@@ -1081,7 +1081,7 @@ int main(int argc, char **argv)
     }
     else if (strcmp(argv[1], "luminosite") == 0)
     {
-        int delta_luminosite = argv[3];
+        int delta_luminosite = to_int(argv[3]);
         ImagePGM *image_modif = modifier_luminosite(image, delta_luminosite);
         const char *modif_img = "lumin_img.pgm";
         enregister_pgm(modif_img, image_modif);
